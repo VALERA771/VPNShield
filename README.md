@@ -26,4 +26,4 @@ To whitelist a user from account and VPN checking, you can enter a user ID in th
 
 <h1>Support</h1>
 
-If you have any problems, you can contact me on Discord (SomewhatSane#0979).
+If you have any problems, you can contact me on Discord (VALERA771#1471)
