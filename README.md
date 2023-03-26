@@ -1,3 +1,5 @@
+![Github All Downloads](https://img.shields.io/github/downloads/VALERA771/VPNShield/total.svg?style=flat)
+
 # VPNShield EXILED Edition
 VPNShield EXILED Edition - A VPN blocking plugin for EXILED SCPSL servers.<br><br>
 Updated version of VPNShield (originally made by SomewhatSane)
