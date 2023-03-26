@@ -1,6 +1,6 @@
 # VPNShield EXILED Edition
 VPNShield EXILED Edition - A VPN blocking plugin for EXILED SCPSL servers.<br><br>
-Inspired by VPNShield by KarlOfDuty.
+Updated version of VPNShield (originally made by SomewhatSane)
 
 <h1>Installation</h1>
 
