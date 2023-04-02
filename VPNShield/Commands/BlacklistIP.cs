@@ -8,13 +8,15 @@ using VPNShield.Objects;
 namespace VPNShield.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    public class BlacklistIP : ICommand
+    public class BlacklistIP : ICommand, IUsageProvider
     {
         public string Command { get; } = "vs_blacklistip";
         public string[] Aliases { get; } = { "vs_bi" };
-
         public string Description { get; } = "Blacklist an IP address.";
-        internal const string Usage = "Usage: vs_blacklistip (add/remove) (ip)";
+        public string[] Usage { get; } =
+        {
+            "add/remove", "ip"
+        };
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -29,7 +31,7 @@ namespace VPNShield.Commands
 
             if (arguments.Count < 2)
             {
-                response = Usage;
+                response = this.DisplayCommandUsage();
                 return false;
             }
 
@@ -82,7 +84,6 @@ namespace VPNShield.Commands
                         response = $"{arguments.At(1)} is has been deleted from memory and is no longer blacklisted. {arguments.At(1)} will be checked again once it makes a connection to this server.";
                         return true;
                     }
-
                     else
                     {
                         response = $"An error occurred when trying to remove whitelisted status from {arguments.At(1)}. Please try again later.";
@@ -90,7 +91,7 @@ namespace VPNShield.Commands
                     }
 
                 default:
-                    response = Usage;
+                    response = this.DisplayCommandUsage();
                     return false;
             }
         }

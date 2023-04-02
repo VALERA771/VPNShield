@@ -10,13 +10,15 @@ using VPNShield.Objects;
 namespace VPNShield.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    public class WhitelistIPSubnet : ICommand
+    public class WhitelistIPSubnet : ICommand, IUsageProvider
     {
         public string Command { get; } = "vs_whitelistipsubnet";
         public string[] Aliases { get; } = { "vs_wips", "vs_wipsub" };
-
         public string Description { get; } = "Whitelist an IP address subnet. Expects CIDR notation.";
-        internal const string Usage = "Usage: vs_whitelistipsubnet (add/remove) (ip subnet in CIDR notation)";
+        public string[] Usage { get; } =
+        {
+            "add/remove", "ip subnet in CIDR notation"
+        };
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -31,7 +33,7 @@ namespace VPNShield.Commands
 
             if (arguments.Count < 2)
             {
-                response = Usage;
+                response = this.DisplayCommandUsage();
                 return false;
             }
 
@@ -87,7 +89,7 @@ namespace VPNShield.Commands
                         return false;
                     }
                 default:
-                    response = Usage;
+                    response = this.DisplayCommandUsage();
                     return false;
             }
         }

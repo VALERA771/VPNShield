@@ -8,13 +8,16 @@ using VPNShield.Objects;
 namespace VPNShield.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    public class WhitelistGlobal : ICommand
+    public class WhitelistGlobal : ICommand, IUsageProvider
     {
         public string Command { get; } = "vs_whitelist";
         public string[] Aliases { get; } = { "vs_w" };
-
         public string Description { get; } = "Exempt players from VPNShield checks.";
-        internal const string Usage = "Usage: vs_whitelist (add/remove) (id)";
+        public string[] Usage { get; } =
+        {
+            "add/remove",
+            "id"
+        };
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -29,7 +32,7 @@ namespace VPNShield.Commands
 
             if (arguments.Count < 2)
             {
-                response = Usage;
+                response = this.DisplayCommandUsage();
                 return false;
             }
 
@@ -47,7 +50,6 @@ namespace VPNShield.Commands
 
                 userId = whitelistPlayer.UserId;
             }
-
             else
                 userId = arguments.At(1).ToLower();
 
@@ -108,7 +110,7 @@ namespace VPNShield.Commands
                     response = $"{arguments.At(1)} is no longer whitelisted and exempt from all VPNShield checks.";
                     return true;
                 default:
-                    response = Usage;
+                    response = this.DisplayCommandUsage();
                     return false;
             }
         }
