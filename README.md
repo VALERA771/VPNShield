@@ -6,7 +6,7 @@ Updated version of VPNShield (originally made by SomewhatSane)
 
 <h1>Installation</h1>
 
-<p>Unzip archive from releases to C:\<Yor User>\AppData\Roaming\EXILED\Plugins.
+<p>Unzip archive from releases to C:\Yor User\AppData\Roaming\EXILED\Plugins.
 
 <h1>Configuration</h1>
 
