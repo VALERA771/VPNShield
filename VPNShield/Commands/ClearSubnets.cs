@@ -10,9 +10,7 @@ namespace VPNShield.Commands
     {
         public string Command { get; } = "vs_clearsubnets";
         public string[] Aliases { get; } = { "vs_clearsubnet" };
-
         public string Description { get; } = "Clear all IP subnets from VPNShield's database.";
-        internal const string Usage = "Usage: vs_clearsubnets";
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -33,7 +31,7 @@ namespace VPNShield.Commands
 
             if (arguments.Count != 1)
             {
-                response = Usage;
+                response = "Confirm or not? Use 'vs_clearsubnets confirm'.";
                 return false;
             }
 
@@ -45,10 +43,9 @@ namespace VPNShield.Commands
                 response = "Deleted all IP subnets from VPNShield's database!";
                 return true;
             }
-
             else
             {
-                response = Usage;
+                response = "Confirm or not? Use 'vs_clearsubnets confirm'.";
                 return false;
             }
         }

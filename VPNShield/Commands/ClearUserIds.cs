@@ -10,9 +10,7 @@ namespace VPNShield.Commands
     {
         public string Command { get; } = "vs_clearuserids";
         public string[] Aliases { get; } = { "vs_clearuserid" };
-
         public string Description { get; } = "Clear all user IDs from VPNShield's database.";
-        internal const string Usage = "Usage: vs_clearuserids";
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -33,7 +31,7 @@ namespace VPNShield.Commands
 
             if (arguments.Count != 1)
             {
-                response = Usage;
+                response = "Confirm or not? Use 'vs_clearuserids confirm'.";
                 return false;
             }
 
@@ -48,7 +46,7 @@ namespace VPNShield.Commands
 
             else
             {
-                response = Usage;
+                response = "Confirm or not? Use 'vs_clearuserids confirm'.";
                 return false;
             }
         }

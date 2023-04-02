@@ -15,7 +15,6 @@ namespace VPNShield.Commands
         public string[] Aliases { get; } = { "vs_getsubnets", "vs_getwsubnets", "vs_gwsub" };
 
         public string Description { get; } = "Get a list of subnets that have been whitelisted.";
-        internal const string Usage = "Usage: vs_getwhitelistedsubnets";
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {

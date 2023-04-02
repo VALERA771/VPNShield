@@ -17,19 +17,19 @@ namespace VPNShield
         public WebhookHandler WebhookHandler;
 
         public override string Name { get; } = "VPNShield EXILED Edition";
-        public override string Author { get; } = "SomewhatSane";
+        public override string Author { get; } = "SomewhatSane & VALERA771";
         public override string Prefix { get; } = "vs";
-        public override Version RequiredExiledVersion { get; } = new Version("5.2.1");
+        public override Version Version { get; } = version;
+        public override Version RequiredExiledVersion { get; } = new("6.0.0");
 
-        public static readonly string exiledPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "EXILED", "Plugins");
-
-        public static readonly string version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-        internal const string lastModifed = "2022/06/22 16:42 UTC";
+        public static Version version => Assembly.GetExecutingAssembly().GetName().Version;
+        
+        internal const string lastModifed = "2023/04/02 14:47 UTC";
 
 
         public override void OnEnabled()
         {
-            Log.Info($"{Name} v{version} by {Author}. Last modified: {lastModifed}.");
+            Log.Info($"{Name} v{Version} by {Author}. Last modified: {lastModifed}.");
 
             Log.Info("Loading base scripts.");
             Account = new Account(this);
@@ -40,7 +40,14 @@ namespace VPNShield
                 _ = UpdateCheck.CheckForUpdate();
 
             Log.Info("Checking file system.");
-            Filesystem.CheckFileSystem();
+
+            if (!Directory.Exists(Path.Combine(Paths.Exiled, "VPNShield")))
+            {
+                Log.Warn($"{Paths.Exiled}/VPNShield directory does not exist. Creating.");
+                Directory.CreateDirectory(Path.Combine(Paths.Exiled, "VPNShield"));
+            }
+
+            Log.Info($"File system check complete.\nWorking directory is: {Path.Combine(Paths.Exiled, "VPNShield")}.\nDatabase path is: {DbManager.databaseLocation}.");
 
             Log.Info("Registering Event Handlers.");
 
