@@ -10,7 +10,7 @@ namespace VPNShield
     {
         //THIS FUNCTION IS FROM https://gist.github.com/a-luna/bd93686ace9f6f22acf0a7032fc41777#file-networkutilities_2_ipaddressisinrange-cs
         //Many thanks to a-luna on GitHub for the function.
-        //I (SomewhatSane) assume NO credit for it.
+        //I (Author) assume NO credit for it.
 
         public static bool IpAddressIsInRange(string checkIp, string cidrIp)
         {

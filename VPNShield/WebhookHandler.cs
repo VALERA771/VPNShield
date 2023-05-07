@@ -366,8 +366,7 @@ namespace VPNShield
                 return false;
             }
 
-            if (plugin.Config.VerboseMode)
-                Log.Debug($"Posted to Discord webhook regarding {player.UserId}'s ({player.IPAddress}) kick successfully!");
+            Log.Debug($"Posted to Discord webhook regarding {player.UserId}'s ({player.IPAddress}) kick successfully!");
 
             return true;
         }
