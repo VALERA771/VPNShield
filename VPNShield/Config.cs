@@ -80,10 +80,7 @@ namespace VPNShield
         [Description("Discord Webhook URL for send_to_discord_webhook (only needed if kick_to_discord is true).")]
         public string SendToDiscordWebhookUrl { get; private set; }
 
-        [Description("Check for VPNShield updates on startup?")]
-        public bool CheckForUpdates { get; private set; } = true;
-
-        [Description("Verbose mode. Prints more console messages.")]
-        public bool VerboseMode { get; private set; } = false;
+        /*[Description("Check for VPNShield updates on startup?")]
+        public bool CheckForUpdates { get; private set; } = true;*/
     }
 }

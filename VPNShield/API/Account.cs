@@ -29,8 +29,7 @@ namespace VPNShield.API
 
                 if (userIdObj.AccountAgePassed)
                 {
-                    if (plugin.Config.VerboseMode)
-                        Log.Debug($"UserID {userID} ({ipAddress}) has already passed an account age check.");
+                    Log.Debug($"UserID {userID} ({ipAddress}) has already passed an account age check.");
 
                     return AccountCheckResult.Pass;
                 }
@@ -56,8 +55,7 @@ namespace VPNShield.API
 
                         if (plugin.Config.AccountKickPrivate && communityvisibilitystate == 1)
                         {
-                            if (plugin.Config.VerboseMode)
-                                Log.Debug($"UserID {userID} ({ipAddress}) cannot have their account age checked due to their privacy settings. Kicking..");
+                            Log.Debug($"UserID {userID} ({ipAddress}) cannot have their account age checked due to their privacy settings. Kicking..");
                             return AccountCheckResult.Private;
                         }
 
@@ -67,21 +65,17 @@ namespace VPNShield.API
 
                         if (accountAge < plugin.Config.SteamMinAge)
                         {
-                            if (plugin.Config.VerboseMode)
-                                Log.Debug($"UserID {userID} ({ipAddress}) is too young to be on this server (account is {accountAge} day(s) old). Kicking..");
+                            Log.Debug($"UserID {userID} ({ipAddress}) is too young to be on this server (account is {accountAge} day(s) old). Kicking..");
                             return AccountCheckResult.Fail;
                         }
 
-                        if (plugin.Config.VerboseMode)
-                            Log.Debug($"UserID {userID} ({ipAddress}) is old enough to be on this server (account is {accountAge} day(s) old).");
+                        Log.Debug($"UserID {userID} ({ipAddress}) is old enough to be on this server (account is {accountAge} day(s) old).");
 
                         userIdObj.AccountAgePassed = true;
                         DbManager.SaveUserId(userIdObj);
 
                         return AccountCheckResult.Pass;
 
-                    case "discord":
-                    case "northwood":
                     default:
                         return AccountCheckResult.Pass; //Ignore them
                 }
@@ -105,8 +99,7 @@ namespace VPNShield.API
 
                 if (userIdObj.AccountPlaytimePassed)
                 {
-                    if (plugin.Config.VerboseMode)
-                        Log.Debug($"UserID {userID} ({ipAddress}) has already passed an SCP: SL playtime check.");
+                    Log.Debug($"UserID {userID} ({ipAddress}) has already passed an SCP: SL playtime check.");
                     return AccountCheckResult.Pass;
                 }
                     
@@ -129,8 +122,7 @@ namespace VPNShield.API
 
                         if (plugin.Config.AccountKickPrivate && steamPlaytimeApiResponse.response.games == null)
                         {
-                            if (plugin.Config.VerboseMode)
-                                Log.Debug($"UserID {userID} ({ipAddress}) cannot have their SCP: SL playtime checked due to their privacy settings. Kicking..");
+                            Log.Debug($"UserID {userID} ({ipAddress}) cannot have their SCP: SL playtime checked due to their privacy settings. Kicking..");
                             return AccountCheckResult.Private;
                         }
 
@@ -138,20 +130,17 @@ namespace VPNShield.API
 
                         if (totalPlaytime < plugin.Config.SteamMinPlaytime)
                         {
-                            if (plugin.Config.VerboseMode)
-                                Log.Debug($"UserID {userID} ({ipAddress}) has not exceeded the minimum SCP: SL playtime required for this server (account has played SCP: SL for {totalPlaytime} minute(s)). Kicking..");
+                            Log.Debug($"UserID {userID} ({ipAddress}) has not exceeded the minimum SCP: SL playtime required for this server (account has played SCP: SL for {totalPlaytime} minute(s)). Kicking..");
                             return AccountCheckResult.Fail;
                         }
 
-                        if (plugin.Config.VerboseMode)
-                            Log.Debug($"UserID {userID} ({ipAddress}) has exceeded the minimum SCP: SL playtime required for this server (account has played SCP: SL for {totalPlaytime} minute(s)).");
+                        Log.Debug($"UserID {userID} ({ipAddress}) has exceeded the minimum SCP: SL playtime required for this server (account has played SCP: SL for {totalPlaytime} minute(s)).");
 
                         userIdObj.AccountPlaytimePassed = true;
                         DbManager.SaveUserId(userIdObj);
 
                         return AccountCheckResult.Pass;
-                    case "discord":
-                    case "northwood":
+                    
                     default:
                         return AccountCheckResult.Pass; //Ignore them
                 }

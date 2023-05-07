@@ -24,39 +24,42 @@ namespace VPNShield
 
         public static Version version => Assembly.GetExecutingAssembly().GetName().Version;
         
-        internal const string lastModifed = "2023/04/02 14:47 UTC";
+        internal const string lastModifed = "2023/05/08 09:43 UTC";
 
 
         public override void OnEnabled()
         {
-            Log.Info($"{Name} v{Version} by {Author}. Last modified: {lastModifed}.");
+            Log.Debug($"Last modified: {lastModifed}.");
 
-            Log.Info("Loading base scripts.");
+            Log.Debug("Loading base scripts.");
             Account = new Account(this);
             VPN = new VPN(this);
             WebhookHandler = new WebhookHandler(this);
 
-            if (Config.CheckForUpdates)
-                _ = UpdateCheck.CheckForUpdate();
-
-            Log.Info("Checking file system.");
+            Log.Debug("Checking file system.");
 
             if (!Directory.Exists(Path.Combine(Paths.Exiled, "VPNShield")))
             {
-                Log.Warn($"{Paths.Exiled}/VPNShield directory does not exist. Creating.");
+                Log.Debug($"{Paths.Exiled}/VPNShield directory does not exist. Creating.");
                 Directory.CreateDirectory(Path.Combine(Paths.Exiled, "VPNShield"));
             }
 
-            Log.Info($"File system check complete.\nWorking directory is: {Path.Combine(Paths.Exiled, "VPNShield")}.\nDatabase path is: {DbManager.databaseLocation}.");
+            if (!File.Exists(DbManager.databaseLocation))
+            {
+                Log.Debug($"{DbManager.databaseLocation} file does not exist.Creating.");
+                File.Create(DbManager.databaseLocation).Close();
+            }
 
-            Log.Info("Registering Event Handlers.");
+            Log.Debug($"File system check complete.\nWorking directory is: {Path.Combine(Paths.Exiled, "VPNShield")}.\nDatabase path is: {DbManager.databaseLocation}.");
+
+            Log.Debug("Registering Event Handlers.");
 
             EventHandlers = new EventHandlers(this);
             PlayerEvents.PreAuthenticating += EventHandlers.PreAuthenticating;
             PlayerEvents.Verified += EventHandlers.Verified;
             ServerEvents.WaitingForPlayers += EventHandlers.WaitingForPlayers;
 
-            Log.Info("Done.");
+            Log.Debug("");
         }
 
         public override void OnDisabled()

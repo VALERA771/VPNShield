@@ -61,8 +61,7 @@ namespace VPNShield.API
 
                     if (mobileResponse[1] == "1")
                     {
-                        if (plugin.Config.VerboseMode)
-                            Log.Debug($"{ipAddress} ({userID}) is a playing on a mobile data connection. Kicking...");
+                        Log.Debug($"{ipAddress} ({userID}) is a playing on a mobile data connection. Kicking...");
 
                         ipAddressObj.Blacklisted = true;
                         ipAddressObj.GiiScore = float.Parse(mobileResponse[0]);
@@ -107,8 +106,7 @@ namespace VPNShield.API
                             if (plugin.Config.GetipintelMaxScore < score)
                             {
                                 ipAddressObj.Blacklisted = true;
-                                if (plugin.Config.VerboseMode)
-                                    Log.Debug($"{ipAddress} ({userID}) is a detectable VPN (score is {score}). Kicking...");
+                                Log.Debug($"{ipAddress} ({userID}) is a detectable VPN (score is {score}). Kicking...");
 
                                 DbManager.SaveIP(ipAddressObj);
 
@@ -117,8 +115,7 @@ namespace VPNShield.API
 
                             else
                             {
-                                if (plugin.Config.VerboseMode)
-                                    Log.Debug($"{ipAddress} ({userID}) is not a detectable VPN (score is {score}).");
+                                Log.Debug($"{ipAddress} ({userID}) is not a detectable VPN (score is {score}).");
 
                                 DbManager.SaveIP(ipAddressObj);
                                 return false;
@@ -185,8 +182,7 @@ namespace VPNShield.API
                 {
                     case 0:
                         {
-                            if (plugin.Config.VerboseMode)
-                                Log.Debug($"{ipAddress} ({userID}) is not a detectable VPN.");
+                            Log.Debug($"{ipAddress} ({userID}) is not a detectable VPN.");
 
 
                             DbManager.SaveIP(ipAddressObj);
@@ -195,8 +191,7 @@ namespace VPNShield.API
 
                     case 1:
                         {
-                            if (plugin.Config.VerboseMode)
-                                Log.Debug($"{ipAddress} ({userID}) is a detectable VPN. Kicking...");
+                            Log.Debug($"{ipAddress} ({userID}) is a detectable VPN. Kicking...");
 
                             ipAddressObj.Blacklisted = true;
                             DbManager.SaveIP(ipAddressObj);
@@ -206,16 +201,14 @@ namespace VPNShield.API
                         {
                             if (plugin.Config.IphubStrictBlocking)
                             {
-                                if (plugin.Config.VerboseMode)
-                                    Log.Debug($"{ipAddress} ({userID}) is a detectable VPN (detected by strict blocking). Kicking...");
+                                Log.Debug($"{ipAddress} ({userID}) is a detectable VPN (detected by strict blocking). Kicking...");
 
                                 ipAddressObj.Blacklisted = true;
                                 DbManager.SaveIP(ipAddressObj);
                                 return true;
                             }
 
-                            if (plugin.Config.VerboseMode)
-                                Log.Debug($"{ipAddress} ({userID}) is not a detectable VPN.");
+                            Log.Debug($"{ipAddress} ({userID}) is not a detectable VPN.");
 
                             DbManager.SaveIP(ipAddressObj);
                             return false;

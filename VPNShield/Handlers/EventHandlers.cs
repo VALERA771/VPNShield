@@ -34,8 +34,7 @@ namespace VPNShield.Handlers
                 ipAddressObj.IPAddress = ev.Request.RemoteEndPoint.Address.ToString();
                 DbManager.SaveIP(ipAddressObj);
 
-                if (plugin.Config.VerboseMode)
-                    Log.Debug($"Created new IP address record for {ev.Request.RemoteEndPoint.Address}.");
+                Log.Debug($"Created new IP address record for {ev.Request.RemoteEndPoint.Address}.");
             }
 
             if (userIdObj == null)
@@ -44,21 +43,18 @@ namespace VPNShield.Handlers
                 userIdObj.UserId = ev.UserId;
                 DbManager.SaveUserId(userIdObj);
 
-                if (plugin.Config.VerboseMode)
-                    Log.Debug($"Created new User ID record for {ev.UserId}.");
+                Log.Debug($"Created new User ID record for {ev.UserId}.");
             }
 
             if (userIdObj.Whitelisted)
             {
-                if (plugin.Config.VerboseMode)
-                    Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) is whitelisted from VPN and account age checks. Skipping checks.");
+                Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) is whitelisted from VPN and account age checks. Skipping checks.");
                 return;
             }
 
             if (ev.UserId.Contains("@northwood", StringComparison.InvariantCultureIgnoreCase))
             {
-                if (plugin.Config.VerboseMode)
-                    Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) is a Northwood Studios member. Skipping checks.");
+                Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) is a Northwood Studios member. Skipping checks.");
                 return;
             }
 
@@ -66,13 +62,11 @@ namespace VPNShield.Handlers
 
             if ((flags & BypassFlags) > 0)
             {
-                if (plugin.Config.VerboseMode)
-                    Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) has bypass flags (flags: {(int)flags}). Skipping checks.");
+                Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) has bypass flags (flags: {(int)flags}). Skipping checks.");
                 return;
             }
 
-            if (plugin.Config.VerboseMode)
-                Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) doesn't have bypass flags (flags: {(int)flags}).");
+            Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) doesn't have bypass flags (flags: {(int)flags}).");
 
             if (plugin.Config.VpnCheck)
             {
@@ -83,8 +77,7 @@ namespace VPNShield.Handlers
                     {
                         if (subnet.Blacklisted)
                         {
-                            if (plugin.Config.VerboseMode)
-                                Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) is within an IP address subnet that is blacklisted ({subnet.IPSubnet}). Kicking...");
+                            Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) is within an IP address subnet that is blacklisted ({subnet.IPSubnet}). Kicking...");
                             writer.Reset();
                             writer.Put((byte)10);
                             writer.Put(plugin.Config.VpnCheckKickMessage); //Limit of 400 characters due to the limit of the UDP packet.
@@ -93,8 +86,7 @@ namespace VPNShield.Handlers
 
                         else
                         {
-                            if (plugin.Config.VerboseMode)
-                                Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) is within an IP address subnet that is whitelisted ({subnet.IPSubnet}).");
+                            Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) is within an IP address subnet that is whitelisted ({subnet.IPSubnet}).");
                         }
 
                         return;
@@ -104,8 +96,7 @@ namespace VPNShield.Handlers
                 //If already known to be blacklisted...
                 if (ipAddressObj.Blacklisted)
                 {
-                    if (plugin.Config.VerboseMode)
-                        Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) is already known to have failed a VPN check. Kicking...");
+                    Log.Debug($"UserID {ev.UserId} ({ev.Request.RemoteEndPoint.Address}) is already known to have failed a VPN check. Kicking...");
 
                     writer.Reset();
                     writer.Put((byte)10);
@@ -318,10 +309,7 @@ namespace VPNShield.Handlers
         {
             ToKick.Clear();
 
-            if (plugin.Config.VerboseMode)
-                Log.Debug("Cleared ToKick dictionary.");
-
-            Filesystem.CheckFileSystem();
+            Log.Debug("Cleared ToKick dictionary.");
 
             Log.Info("This server is protected by VPNShield.");
         }
